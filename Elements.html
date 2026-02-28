@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Elements — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Elements</span></div>
+        <h1 class="text-2xl font-extrabold tracking-tight" style="font-family:var(--font-display);color:var(--text)">UI
+          Elements</h1>
+        <p class="text-sm mt-1" style="color:var(--muted)">Complete component library for AdminDash</p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="panel mb-4">
+        <div class="panel-hd"><span class="panel-title">Buttons</span></div>
+        <div class="p-5">
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--muted2)">Variants</p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <button class="btn btn-primary" onclick="showToast('Primary!')">Primary</button>
+            <button class="btn btn-ghost" onclick="showToast('Ghost!')">Ghost</button>
+            <button class="btn btn-success" onclick="showToast('Success!')">Success</button>
+            <button class="btn btn-danger" onclick="showToast('Danger!')">Danger</button>
+            <button class="btn"
+              style="background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25)"
+              onclick="showToast('Purple!')">Purple</button>
+            <button class="btn"
+              style="background:rgba(6,182,212,.15);color:#22d3ee;border:1px solid rgba(6,182,212,.25)"
+              onclick="showToast('Cyan!')">Cyan</button>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--muted2)">Sizes</p>
+          <div class="flex flex-wrap gap-3 items-center mb-6">
+            <button class="btn btn-primary" style="padding:5px 10px;font-size:11px">XSmall</button>
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary">Medium</button>
+            <button class="btn btn-primary" style="padding:11px 24px;font-size:14px">Large</button>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--muted2)">With Icons</p>
+          <div class="flex flex-wrap gap-3">
+            <button class="btn btn-primary" onclick="showToast('Add! ➕')">➕ Add New</button>
+            <button class="btn btn-ghost" onclick="showToast('Export! 📄')">📄 Export CSV</button>
+            <button class="btn btn-danger" onclick="showToast('Delete! 🗑️')">🗑️ Delete</button>
+            <button class="btn btn-success" onclick="showToast('Saved! ✅')">✅ Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges + Tags -->
+      <div class="panel mb-4">
+        <div class="panel-hd"><span class="panel-title">Badges & Tags</span></div>
+        <div class="p-5">
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--muted2)">Status Badges (with
+            dot)</p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="badge badge-green">Active</span><span class="badge badge-amber">Pending</span><span
+              class="badge badge-blue">Paid</span>
+            <span class="badge badge-red">Failed</span><span class="badge badge-gray">Inactive</span><span
+              class="badge badge-cyan">Shipped</span><span class="badge badge-purple">Featured</span>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--muted2)">Tags (no dot)</p>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag tag-blue">Technology</span><span class="tag tag-green">In Stock</span><span
+              class="tag tag-purple">Featured</span>
+            <span class="tag tag-amber">Pending</span><span class="tag tag-red">Critical</span><span
+              class="tag tag-cyan">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="panel mb-4">
+        <div class="panel-hd"><span class="panel-title">Alerts</span></div>
+        <div class="p-5 flex flex-col gap-3">
+          <div class="flex items-start gap-3 p-4 rounded-xl border text-sm font-medium"
+            style="background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.25);color:#93c5fd">ℹ️ <span>This is an
+              <strong>info</strong> alert — Here's some useful information for the user.</span></div>
+          <div class="flex items-start gap-3 p-4 rounded-xl border text-sm font-medium"
+            style="background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.25);color:#4ade80">✅ <span>This is a
+              <strong>success</strong> alert — The action was completed successfully!</span></div>
+          <div class="flex items-start gap-3 p-4 rounded-xl border text-sm font-medium"
+            style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.25);color:#fbbf24">⚠️ <span>This is a
+              <strong>warning</strong> alert — Please review before proceeding.</span></div>
+          <div class="flex items-start gap-3 p-4 rounded-xl border text-sm font-medium"
+            style="background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.25);color:#f87171">❌ <span>This is an
+              <strong>error</strong> alert — Something went wrong. Please try again.</span></div>
+        </div>
+      </div>
+
+      <!-- Forms + Toggles -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">Form Inputs</span></div>
+          <div class="p-5 flex flex-col gap-4">
+            <div><label class="lbl">Text Input</label><input class="inp" type="text" placeholder="Enter text here..." />
+            </div>
+            <div><label class="lbl">Email</label><input class="inp" type="email" placeholder="email@example.com" />
+            </div>
+            <div><label class="lbl">Password</label><input class="inp" type="password" placeholder="••••••••" /></div>
+            <div><label class="lbl">Select Dropdown</label><select class="inp">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+              </select></div>
+            <div><label class="lbl">Textarea</label><textarea class="inp" rows="3"
+                placeholder="Write something..."></textarea></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">Toggles & Checkboxes</span></div>
+          <div class="p-5 flex flex-col gap-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-semibold" style="color:var(--text)">Enable Notifications</div>
+                <div class="text-xs" style="color:var(--muted2)">Get alerts for new orders and messages</div>
+              </div>
+              <div class="tog on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-semibold" style="color:var(--text)">Dark Mode</div>
+                <div class="text-xs" style="color:var(--muted2)">Switch between light and dark theme</div>
+              </div>
+              <div class="tog on" onclick="this.classList.toggle('on');toggleTheme()"></div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-semibold" style="color:var(--text)">Auto Backup</div>
+                <div class="text-xs" style="color:var(--muted2)">Backup daily at 3:00 AM automatically</div>
+              </div>
+              <div class="tog" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-semibold" style="color:var(--text)">Two-Factor Auth</div>
+                <div class="text-xs" style="color:var(--muted2)">Enable 2FA for added security</div>
+              </div>
+              <div class="tog on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="pt-4 border-t flex flex-col gap-3" style="border-color:var(--border)">
+              <label class="flex items-center gap-2 cursor-pointer text-sm" style="color:var(--text)"><input
+                  type="checkbox" checked style="accent-color:#6366f1;width:16px;height:16px" /> Receive email
+                updates</label>
+              <label class="flex items-center gap-2 cursor-pointer text-sm" style="color:var(--text)"><input
+                  type="checkbox" style="accent-color:#6366f1;width:16px;height:16px" /> Weekly digest
+                newsletter</label>
+              <label class="flex items-center gap-2 cursor-pointer text-sm" style="color:var(--text)"><input
+                  type="radio" name="r" checked style="accent-color:#6366f1;width:16px;height:16px" /> Admin
+                role</label>
+              <label class="flex items-center gap-2 cursor-pointer text-sm" style="color:var(--text)"><input
+                  type="radio" name="r" style="accent-color:#6366f1;width:16px;height:16px" /> Editor role</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Palette -->
+      <div class="panel mb-4">
+        <div class="panel-hd"><span class="panel-title">Color Palette</span></div>
+        <div class="p-5 flex flex-wrap gap-4">
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#3b82f6" onclick="showToast('Blue #3b82f6')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Blue</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#6366f1" onclick="showToast('Indigo #6366f1')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Indigo</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#a855f7" onclick="showToast('Purple #a855f7')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Purple</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#ec4899" onclick="showToast('Pink #ec4899')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Pink</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#22c55e" onclick="showToast('Green #22c55e')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Green</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#06b6d4" onclick="showToast('Cyan #06b6d4')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Cyan</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#f59e0b" onclick="showToast('Amber #f59e0b')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Amber</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-xl cursor-pointer hover:scale-110 transition-transform"
+              style="background:#ef4444" onclick="showToast('Red #ef4444')"></div><span class="text-[10px]"
+              style="color:var(--muted2)">Red</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>initLayout('elements');</script>
+</body>
+
+</html>

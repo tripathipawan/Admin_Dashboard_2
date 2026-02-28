@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Posts — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Posts</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Posts & Content</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)"><span class="live-dot"></span>142 posts · 24 drafts · 5
+              scheduled</p>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('New post editor! ✍️')">+ New Post</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="stat-card d1">
+          <div class="stat-glow" style="background:#3b82f6"></div>
+          <div class="stat-icon ic-blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Total Posts</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv1"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 18% this month</div>
+        </div>
+        <div class="stat-card d2">
+          <div class="stat-glow" style="background:#22c55e"></div>
+          <div class="stat-icon ic-green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Total Views</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv2"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 32% this month</div>
+        </div>
+        <div class="stat-card d3">
+          <div class="stat-glow" style="background:#a855f7"></div>
+          <div class="stat-icon ic-purple"><svg width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Comments</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv3"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 24% this month</div>
+        </div>
+        <div class="stat-card d4">
+          <div class="stat-glow" style="background:#f59e0b"></div>
+          <div class="stat-icon ic-amber"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Likes</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv4"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 41% this month</div>
+        </div>
+      </div>
+      <div class="panel mb-4">
+        <div class="p-4 flex flex-wrap gap-3 items-center justify-between">
+          <div class="flex gap-2 flex-wrap" id="pFBtns">
+            <button class="btn btn-primary btn-sm" onclick="fPosts('all',this)">All</button>
+            <button class="btn btn-ghost btn-sm" onclick="fPosts('published',this)">Published</button>
+            <button class="btn btn-ghost btn-sm" onclick="fPosts('draft',this)">Drafts</button>
+            <button class="btn btn-ghost btn-sm" onclick="fPosts('scheduled',this)">Scheduled</button>
+          </div>
+          <input class="inp" style="width:220px;padding:7px 12px" placeholder="🔍 Search posts..." />
+        </div>
+      </div>
+      <div id="postsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-4"></div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('posts');
+
+    const POSTS = [
+      { title: '10 Tips to Scale Your E-Commerce Business in 2025', cat: 'Business', st: 'published', views: '12.4k', comments: 84, likes: 342, author: 'Pawan T.', date: 'Feb 20, 2025', color: 'linear-gradient(90deg,#3b82f6,#6366f1)' },
+      { title: 'How AI is Transforming Admin Dashboards', cat: 'Technology', st: 'published', views: '8.9k', comments: 56, likes: 218, author: 'Pawan T.', date: 'Feb 18, 2025', color: 'linear-gradient(90deg,#a855f7,#ec4899)' },
+      { title: 'The Ultimate Guide to Inventory Management', cat: 'Operations', st: 'draft', views: '—', comments: 0, likes: 0, author: 'Pawan T.', date: 'Feb 17, 2025', color: 'linear-gradient(90deg,#22c55e,#10b981)' },
+      { title: 'Understanding Customer Behavior Analytics', cat: 'Analytics', st: 'published', views: '6.2k', comments: 43, likes: 167, author: 'Pawan T.', date: 'Feb 15, 2025', color: 'linear-gradient(90deg,#f59e0b,#ef4444)' },
+      { title: 'Top 5 Payment Gateways for Indian Startups', cat: 'Finance', st: 'scheduled', views: '—', comments: 0, likes: 0, author: 'Pawan T.', date: 'Feb 25, 2025', color: 'linear-gradient(90deg,#06b6d4,#3b82f6)' },
+      { title: 'Building a Loyal Customer Base: Case Study', cat: 'Marketing', st: 'published', views: '4.7k', comments: 29, likes: 132, author: 'Pawan T.', date: 'Feb 12, 2025', color: 'linear-gradient(90deg,#ec4899,#a855f7)' },
+      { title: 'Node.js Best Practices for Large Scale Apps', cat: 'Technology', st: 'published', views: '9.1k', comments: 71, likes: 289, author: 'Pawan T.', date: 'Feb 10, 2025', color: 'linear-gradient(90deg,#22c55e,#06b6d4)' },
+      { title: 'Setting Up Automated Backups: Full Tutorial', cat: 'DevOps', st: 'draft', views: '—', comments: 0, likes: 0, author: 'Pawan T.', date: 'Feb 8, 2025', color: 'linear-gradient(90deg,#6366f1,#3b82f6)' },
+      { title: '2025 E-commerce Trends You Need to Know', cat: 'Business', st: 'published', views: '15.3k', comments: 98, likes: 421, author: 'Pawan T.', date: 'Feb 5, 2025', color: 'linear-gradient(90deg,#f59e0b,#22c55e)' },
+    ];
+    const stBadge = { published: 'badge-green', draft: 'badge-gray', scheduled: 'badge-amber' };
+    function renderPosts(data) {
+      const g = document.getElementById('postsGrid'); g.innerHTML = '';
+      data.forEach((p, i) => {
+        const d = document.createElement('div'); d.className = 'panel p-5 anim-up'; d.style.animationDelay = i * .05 + 's';
+        d.innerHTML = `<div class="h-2 rounded mb-4 -mx-5 -mt-5" style="background:${p.color}"></div><div class="flex items-center gap-2 mb-3"><span class="tag tag-purple">${p.cat}</span><span class="badge ${stBadge[p.st]}">${p.st}</span></div><div class="font-bold text-[14px] mb-2 leading-snug" style="font-family:var(--font-display);color:var(--text)">${p.title}</div><div class="text-xs mb-3" style="color:var(--muted2)">By ${p.author} · ${p.date}</div><div class="flex items-center gap-4 mb-4 text-xs" style="color:var(--muted)"><span>👁️ ${p.views}</span><span>💬 ${p.comments}</span><span>❤️ ${p.likes}</span></div><div class="flex gap-2"><button class="btn btn-primary btn-sm" onclick="showToast('Editing! ✏️')">Edit</button><button class="btn btn-ghost btn-sm" onclick="showToast('Viewing! 👁️')">View</button><button class="btn btn-danger btn-sm" onclick="showToast('Deleted! 🗑️')">Del</button></div>`;
+        g.appendChild(d);
+      });
+    }
+    function fPosts(type, btn) {
+      document.querySelectorAll('#pFBtns .btn').forEach(b => b.className = 'btn btn-ghost btn-sm'); btn.className = 'btn btn-primary btn-sm';
+      renderPosts(type === 'all' ? POSTS : POSTS.filter(p => p.st === type));
+    }
+    setTimeout(() => { renderPosts(POSTS); countUp('sv1', 142); countUp('sv2', 86400); countUp('sv3', 1247); countUp('sv4', 4832); }, 1500);
+
+  </script>
+</body>
+
+</html>

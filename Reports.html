@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Reports — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Reports</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Reports & Exports</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)">Generate, download and schedule automated reports</p>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('Schedule added! ⏰')">+ Schedule Report</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="panel p-5 anim-up d1 cursor-pointer hover:-translate-y-1 transition-transform"
+          onclick="showToast('Generating Sales Report... 📊')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3"
+            style="background:rgba(59,130,246,.15)">📊</div>
+          <div class="font-bold text-[14px] mb-1" style="font-family:var(--font-display);color:var(--text)">Sales Report
+          </div>
+          <div class="text-xs mb-4" style="color:var(--muted2)">Revenue, orders & trends</div>
+          <div class="flex items-center justify-between"><span class="text-[11px]" style="color:var(--muted2)">Last: Feb
+              20</span><button class="btn btn-primary btn-sm" onclick="showToast('Generating! 📊')">Generate</button>
+          </div>
+        </div>
+        <div class="panel p-5 anim-up d2 cursor-pointer hover:-translate-y-1 transition-transform"
+          onclick="showToast('Generating User Report... 👥')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3"
+            style="background:rgba(34,197,94,.15)">👥</div>
+          <div class="font-bold text-[14px] mb-1" style="font-family:var(--font-display);color:var(--text)">User Report
+          </div>
+          <div class="text-xs mb-4" style="color:var(--muted2)">Registrations & activity</div>
+          <div class="flex items-center justify-between"><span class="text-[11px]" style="color:var(--muted2)">Last: Feb
+              19</span><button class="btn btn-primary btn-sm" onclick="showToast('Generating! 👥')">Generate</button>
+          </div>
+        </div>
+        <div class="panel p-5 anim-up d3 cursor-pointer hover:-translate-y-1 transition-transform"
+          onclick="showToast('Generating Inventory Report... 📦')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3"
+            style="background:rgba(168,85,247,.15)">📦</div>
+          <div class="font-bold text-[14px] mb-1" style="font-family:var(--font-display);color:var(--text)">Inventory
+            Report</div>
+          <div class="text-xs mb-4" style="color:var(--muted2)">Stock levels & movement</div>
+          <div class="flex items-center justify-between"><span class="text-[11px]" style="color:var(--muted2)">Last: Feb
+              18</span><button class="btn btn-primary btn-sm" onclick="showToast('Generating! 📦')">Generate</button>
+          </div>
+        </div>
+        <div class="panel p-5 anim-up d4 cursor-pointer hover:-translate-y-1 transition-transform"
+          onclick="showToast('Generating Traffic Report... 🌐')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3"
+            style="background:rgba(245,158,11,.15)">🌐</div>
+          <div class="font-bold text-[14px] mb-1" style="font-family:var(--font-display);color:var(--text)">Traffic
+            Report</div>
+          <div class="text-xs mb-4" style="color:var(--muted2)">Visitors & page analytics</div>
+          <div class="flex items-center justify-between"><span class="text-[11px]" style="color:var(--muted2)">Last: Feb
+              20</span><button class="btn btn-primary btn-sm" onclick="showToast('Generating! 🌐')">Generate</button>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+        <div class="panel d1">
+          <div class="panel-hd"><span class="panel-title">Revenue vs Target</span></div>
+          <div class="p-5"><canvas id="revenueChart" height="240"></canvas></div>
+        </div>
+        <div class="panel d2">
+          <div class="panel-hd"><span class="panel-title">Recent Reports</span><button class="panel-btn">View
+              All</button></div>
+          <div class="overflow-x-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Report</th>
+                  <th>Type</th>
+                  <th>Size</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-semibold">Sales_Feb_2025.pdf</td>
+                  <td><span class="tag tag-blue">PDF</span></td>
+                  <td style="color:var(--muted2)">2.4 MB</td>
+                  <td class="text-xs" style="color:var(--muted2)">Feb 20</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading! ⬇️')">⬇️</button></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold">Users_Jan_2025.xlsx</td>
+                  <td><span class="tag tag-green">XLSX</span></td>
+                  <td style="color:var(--muted2)">1.8 MB</td>
+                  <td class="text-xs" style="color:var(--muted2)">Feb 19</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading! ⬇️')">⬇️</button></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold">Inventory_Q4.pdf</td>
+                  <td><span class="tag tag-purple">PDF</span></td>
+                  <td style="color:var(--muted2)">3.1 MB</td>
+                  <td class="text-xs" style="color:var(--muted2)">Feb 18</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading! ⬇️')">⬇️</button></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold">Traffic_Feb_2025.csv</td>
+                  <td><span class="tag tag-amber">CSV</span></td>
+                  <td style="color:var(--muted2)">0.9 MB</td>
+                  <td class="text-xs" style="color:var(--muted2)">Feb 17</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading! ⬇️')">⬇️</button></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold">Revenue_2024.pdf</td>
+                  <td><span class="tag tag-blue">PDF</span></td>
+                  <td style="color:var(--muted2)">5.2 MB</td>
+                  <td class="text-xs" style="color:var(--muted2)">Jan 31</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading! ⬇️')">⬇️</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="panel mb-4">
+        <div class="panel-hd"><span class="panel-title">Scheduled Reports</span><button class="panel-btn"
+            onclick="showToast('Schedule added!')">+ Add Schedule</button></div>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Report Name</th>
+                <th>Frequency</th>
+                <th>Recipients</th>
+                <th>Next Run</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold">Daily Sales Summary</td>
+                <td><span class="tag tag-blue">Daily</span></td>
+                <td style="color:var(--muted)">pawan@admindash.io</td>
+                <td class="text-xs" style="color:var(--muted2)">Tomorrow, 8:00 AM</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td><button class="btn btn-ghost btn-sm" onclick="showToast('Paused!')">Pause</button></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Weekly User Report</td>
+                <td><span class="tag tag-green">Weekly</span></td>
+                <td style="color:var(--muted)">team@admindash.io</td>
+                <td class="text-xs" style="color:var(--muted2)">Mon, 9:00 AM</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td><button class="btn btn-ghost btn-sm" onclick="showToast('Paused!')">Pause</button></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Monthly Revenue Report</td>
+                <td><span class="tag tag-purple">Monthly</span></td>
+                <td style="color:var(--muted)">ceo@admindash.io</td>
+                <td class="text-xs" style="color:var(--muted2)">Mar 1, 10:00 AM</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td><button class="btn btn-ghost btn-sm" onclick="showToast('Paused!')">Pause</button></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Inventory Alert</td>
+                <td><span class="tag tag-amber">Real-time</span></td>
+                <td style="color:var(--muted)">ops@admindash.io</td>
+                <td class="text-xs" style="color:var(--muted2)">On trigger</td>
+                <td><span class="badge badge-amber">Paused</span></td>
+                <td><button class="btn btn-success btn-sm" onclick="showToast('Activated!')">Activate</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('reports');
+
+    setTimeout(() => {
+      const c = gc();
+      new Chart(document.getElementById('revenueChart').getContext('2d'), { type: 'bar', data: { labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'], datasets: [{ label: 'Revenue', data: [62000, 58000, 71000, 78000, 69000, 82000], backgroundColor: 'rgba(59,130,246,.75)', borderRadius: 6, borderSkipped: false }, { label: 'Target', data: [60000, 65000, 70000, 75000, 72000, 80000], type: 'line', borderColor: '#a855f7', borderWidth: 2.5, pointBackgroundColor: '#a855f7', pointRadius: 4, fill: false, tension: .4 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'top', labels: { color: c.text, font: { size: 12, family: 'DM Sans' }, boxWidth: 12, padding: 16, usePointStyle: true } }, tooltip: { backgroundColor: '#1a2133', borderColor: 'rgba(255,255,255,.12)', borderWidth: 1, titleColor: '#f1f5f9', bodyColor: c.text, padding: 12, cornerRadius: 10, callbacks: { label: ct => ' $' + ct.raw.toLocaleString() } } }, scales: { x: { grid: { color: c.grid, drawBorder: false }, ticks: { color: c.text, font: { size: 11, family: 'DM Sans' } } }, y: { grid: { color: c.grid, drawBorder: false }, ticks: { color: c.text, font: { size: 11, family: 'DM Sans' }, callback: v => '$' + v / 1000 + 'k' } } } } });
+    }, 1500);
+
+  </script>
+</body>
+
+</html>

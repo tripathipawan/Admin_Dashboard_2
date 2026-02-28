@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Products — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Products</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Products</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)"><span class="live-dot"></span>238 products · 12 low stock
+            </p>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('Add Product! 📦')">+ Add Product</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="stat-card d1">
+          <div class="stat-glow" style="background:#3b82f6"></div>
+          <div class="stat-icon ic-blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path
+                d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+              <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Total Products</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv1"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 21% this month</div>
+        </div>
+        <div class="stat-card d2">
+          <div class="stat-glow" style="background:#22c55e"></div>
+          <div class="stat-icon ic-green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <polyline points="20 12 20 22 4 22 4 12" />
+              <rect x="2" y="7" width="20" height="5" />
+              <path d="M12 22V7" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">In Stock</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv2"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 8% this week</div>
+        </div>
+        <div class="stat-card d3">
+          <div class="stat-glow" style="background:#ef4444"></div>
+          <div class="stat-icon ic-red"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" x2="12" y1="8" y2="12" />
+              <line x1="12" x2="12.01" y1="16" y2="16" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Low Stock</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv3"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-red-400">3 items critical</div>
+        </div>
+        <div class="stat-card d4">
+          <div class="stat-glow" style="background:#a855f7"></div>
+          <div class="stat-icon ic-purple"><svg width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <line x1="12" x2="12" y1="1" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Total Value</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv4"
+            style="font-family:var(--font-display);color:var(--text)">$0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 15% this month</div>
+        </div>
+      </div>
+
+      <div class="panel mb-4">
+        <div class="p-4 flex flex-wrap gap-3 items-center justify-between">
+          <div class="flex gap-2 flex-wrap">
+            <select class="inp" style="width:160px;padding:7px 12px">
+              <option>All Categories</option>
+              <option>Electronics</option>
+              <option>Clothing</option>
+              <option>Books</option>
+              <option>Home & Garden</option>
+              <option>Sports</option>
+            </select>
+            <input class="inp" style="width:200px;padding:7px 12px" placeholder="🔍 Search products..." />
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-ghost btn-sm" id="gridBtn" onclick="setView('grid',this)">⊞ Grid</button>
+            <button class="btn btn-primary btn-sm" id="listBtn" onclick="setView('list',this)">☰ List</button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Exported! 📄')">Export</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4"
+        style="display:none"></div>
+      <div id="productsTable" class="panel">
+        <div class="panel-hd"><span class="panel-title">Products List</span></div>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Sales</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('products');
+
+    const PRODUCTS = [
+      { name: 'MacBook Pro 14"', cat: 'Electronics', price: '$2,399', stock: 28, status: 'instock', sales: 145, icon: '💻' },
+      { name: 'iPhone 15 Pro', cat: 'Electronics', price: '$1,099', stock: 4, status: 'low', sales: 320, icon: '📱' },
+      { name: 'Sony WH-1000XM5', cat: 'Electronics', price: '$349', stock: 67, status: 'instock', sales: 89, icon: '🎧' },
+      { name: 'iPad Air M2', cat: 'Electronics', price: '$749', stock: 0, status: 'outstock', sales: 54, icon: '📲' },
+      { name: 'Samsung 4K TV 65"', cat: 'Electronics', price: '$1,299', stock: 12, status: 'instock', sales: 38, icon: '📺' },
+      { name: 'Nike Air Max 90', cat: 'Clothing', price: '$130', stock: 3, status: 'low', sales: 210, icon: '👟' },
+      { name: "Levi's 501 Jeans", cat: 'Clothing', price: '$79', stock: 95, status: 'instock', sales: 445, icon: '👖' },
+      { name: 'The Art of War', cat: 'Books', price: '$12', stock: 150, status: 'instock', sales: 560, icon: '📚' },
+      { name: 'Garden Tool Set', cat: 'Home & Garden', price: '$89', stock: 22, status: 'instock', sales: 76, icon: '🌿' },
+      { name: 'Yoga Mat Pro', cat: 'Sports', price: '$55', stock: 2, status: 'low', sales: 198, icon: '🧘' },
+      { name: 'Coffee Machine', cat: 'Home & Garden', price: '$299', stock: 35, status: 'instock', sales: 123, icon: '☕' },
+      { name: 'Running Shoes X', cat: 'Sports', price: '$145', stock: 47, status: 'instock', sales: 287, icon: '🏃' },
+    ];
+    let curView = 'list';
+    function setView(v, btn) {
+      curView = v;
+      document.querySelectorAll('#gridBtn,#listBtn').forEach(b => { b.className = 'btn btn-ghost btn-sm'; });
+      btn.className = 'btn btn-primary btn-sm';
+      document.getElementById('productsGrid').style.display = v === 'grid' ? 'grid' : 'none';
+      document.getElementById('productsTable').style.display = v === 'list' ? 'block' : 'none';
+      if (v === 'grid') renderGrid(); else renderTable();
+    }
+    function stBadge(s) { return s === 'instock' ? 'badge-green' : s === 'low' ? 'badge-amber' : 'badge-red'; }
+    function stLabel(s) { return s === 'instock' ? 'In Stock' : s === 'low' ? 'Low Stock' : 'Out of Stock'; }
+    function renderGrid() {
+      const g = document.getElementById('productsGrid'); g.innerHTML = '';
+      PRODUCTS.forEach((p, i) => {
+        const d = document.createElement('div'); d.className = 'panel p-0 overflow-hidden anim-up'; d.style.animationDelay = i * .04 + 's';
+        d.innerHTML = `<div class="h-32 flex items-center justify-center text-5xl" style="background:var(--surface2)">${p.icon}</div><div class="p-4"><div class="font-bold text-[13px] mb-1" style="font-family:var(--font-display);color:var(--text)">${p.name}</div><div class="text-xs mb-3" style="color:var(--muted2)">${p.cat}</div><div class="flex items-center justify-between mb-3"><span class="text-lg font-extrabold" style="font-family:var(--font-display);color:var(--text)">${p.price}</span><span class="badge ${stBadge(p.status)}">${stLabel(p.status)}</span></div><div class="text-xs mb-3" style="color:var(--muted2)">Stock: <strong style="color:var(--text)">${p.stock}</strong> · Sales: <strong style="color:var(--text)">${p.sales}</strong></div><div class="flex gap-2"><button class="btn btn-primary btn-sm flex-1 justify-center" onclick="showToast('Editing! ✏️')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Deleted! 🗑️')">🗑️</button></div></div>`;
+        g.appendChild(d);
+      });
+    }
+    function renderTable() {
+      const tb = document.getElementById('productsTableBody'); tb.innerHTML = '';
+      PRODUCTS.forEach((p, i) => {
+        const tr = document.createElement('tr'); tr.style.animationDelay = i * .04 + 's';
+        tr.innerHTML = `<td><div class="flex items-center gap-2"><span class="text-2xl">${p.icon}</span><span class="font-semibold" style="color:var(--text)">${p.name}</span></div></td><td><span class="tag tag-blue">${p.cat}</span></td><td class="font-bold" style="font-family:var(--font-display)">${p.price}</td><td class="font-semibold">${p.stock}</td><td><span class="badge ${stBadge(p.status)}">${stLabel(p.status)}</span></td><td class="font-semibold">${p.sales}</td><td><div class="flex gap-2"><button class="btn btn-ghost btn-sm" onclick="showToast('Editing!')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Deleted!')">Del</button></div></td>`;
+        tb.appendChild(tr);
+      });
+    }
+    setTimeout(() => { renderTable(); countUp('sv1', 238); countUp('sv2', 213); countUp('sv3', 12); countUp('sv4', 184250, '$'); }, 1500);
+
+  </script>
+</body>
+
+</html>

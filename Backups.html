@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Backups — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Backups</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Backup Manager</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)"><span class="live-dot"></span>Last backup: 3 hours ago ·
+              All systems healthy</p>
+          </div>
+          <button class="btn btn-primary" onclick="startBackup()">▶ Start Backup Now</button>
+        </div>
+      </div>
+
+      <!-- Progress bar (shown during backup) -->
+      <div id="backupProgress" class="panel mb-4" style="display:none">
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2"><span class="text-sm font-semibold"
+              style="color:var(--text)">Backup in progress...</span><span id="bpPct" class="text-sm font-bold"
+              style="color:var(--blue)">0%</span></div>
+          <div class="prog-bg">
+            <div id="bpBar" class="prog-fill"
+              style="width:0%;background:linear-gradient(90deg,#3b82f6,#6366f1);transition:width .3s ease"></div>
+          </div>
+          <div class="text-xs mt-2" style="color:var(--muted2)" id="bpStatus">Initializing backup...</div>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="stat-card d1">
+          <div class="stat-glow" style="background:#3b82f6"></div>
+          <div class="stat-icon ic-blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Total Backups</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv1"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">All time</div>
+        </div>
+        <div class="stat-card d2">
+          <div class="stat-glow" style="background:#22c55e"></div>
+          <div class="stat-icon ic-green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Successful</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv2"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">98.7% success rate</div>
+        </div>
+        <div class="stat-card d3">
+          <div class="stat-glow" style="background:#a855f7"></div>
+          <div class="stat-icon ic-purple"><svg width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Storage Used</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2"
+            style="font-family:var(--font-display);color:var(--text)">62 GB</div>
+          <div class="text-xs font-semibold" style="color:var(--muted2)">of 100 GB total</div>
+        </div>
+        <div class="stat-card d4">
+          <div class="stat-glow" style="background:#f59e0b"></div>
+          <div class="stat-icon ic-amber"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" x2="16" y1="2" y2="6" />
+              <line x1="8" x2="8" y1="2" y2="6" />
+              <line x1="3" x2="21" y1="10" y2="10" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Next Backup</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2"
+            style="font-family:var(--font-display);color:var(--text)">3:00 AM</div>
+          <div class="text-xs font-semibold" style="color:var(--muted2)">Daily scheduled</div>
+        </div>
+      </div>
+
+      <!-- Main grid -->
+      <div class="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4 mb-4" style="align-items:start">
+        <!-- Backup History -->
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">Backup History</span><button class="panel-btn"
+              onclick="showToast('All backups loaded!')">View All</button></div>
+          <div class="divide-y" style="border-color:var(--border)">
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">💾</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Full Backup — Feb 20, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">3:00 AM · Duration: 8m 42s · 14.2 GB</div>
+              </div><span class="badge badge-green">Success</span><button class="btn btn-ghost btn-sm ml-2"
+                onclick="showToast('Downloading! ⬇️')">⬇️</button>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">💾</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Incremental — Feb 19, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">3:00 AM · Duration: 2m 15s · 2.8 GB</div>
+              </div><span class="badge badge-green">Success</span><button class="btn btn-ghost btn-sm ml-2"
+                onclick="showToast('Downloading! ⬇️')">⬇️</button>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">💾</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Incremental — Feb 18, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">3:00 AM · Duration: 2m 51s · 3.1 GB</div>
+              </div><span class="badge badge-green">Success</span><button class="btn btn-ghost btn-sm ml-2"
+                onclick="showToast('Downloading! ⬇️')">⬇️</button>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">⚠️</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Full Backup — Feb 17, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">3:00 AM · Failed after 1m 23s · Connection
+                  timeout</div>
+              </div><span class="badge badge-red">Failed</span><button class="btn btn-primary btn-sm ml-2"
+                onclick="showToast('Retrying! 🔄')">Retry</button>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">💾</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Full Backup — Feb 13, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">3:00 AM · Duration: 9m 04s · 13.9 GB</div>
+              </div><span class="badge badge-green">Success</span><button class="btn btn-ghost btn-sm ml-2"
+                onclick="showToast('Downloading! ⬇️')">⬇️</button>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-4">
+              <div class="text-2xl">💾</div>
+              <div class="flex-1">
+                <div class="font-semibold text-[13px]" style="color:var(--text)">Manual Backup — Feb 10, 2025</div>
+                <div class="text-xs mt-0.5" style="color:var(--muted2)">11:30 AM · Duration: 11m 20s · 13.5 GB</div>
+              </div><span class="badge badge-green">Success</span><button class="btn btn-ghost btn-sm ml-2"
+                onclick="showToast('Downloading! ⬇️')">⬇️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storage + Schedule -->
+        <div class="flex flex-col gap-4">
+          <!-- Storage -->
+          <div class="panel">
+            <div class="panel-hd"><span class="panel-title">Storage Overview</span></div>
+            <div class="p-5">
+              <div class="flex items-center justify-center mb-5">
+                <div class="relative w-32 h-32"><svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--surface3)" stroke-width="2.5" />
+                    <circle cx="18" cy="18" r="15.9155" fill="none" stroke="url(#sg)" stroke-width="2.5"
+                      stroke-dasharray="62 38" stroke-linecap="round" />
+                    <defs>
+                      <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="text-xl font-extrabold" style="font-family:var(--font-display);color:var(--text)">62%
+                    </div>
+                    <div class="text-[10px]" style="color:var(--muted2)">62/100 GB</div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3">
+                <div>
+                  <div class="flex justify-between mb-1"><span class="text-[12px]"
+                      style="color:var(--muted)">Database</span><span class="text-[11px] font-bold"
+                      style="color:var(--muted)">28 GB</span></div>
+                  <div class="prog-bg">
+                    <div class="prog-fill" style="width:45%;background:linear-gradient(90deg,#3b82f6,#6366f1)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><span class="text-[12px]" style="color:var(--muted)">Media
+                      Files</span><span class="text-[11px] font-bold" style="color:var(--muted)">22 GB</span></div>
+                  <div class="prog-bg">
+                    <div class="prog-fill" style="width:35%;background:linear-gradient(90deg,#22c55e,#10b981)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><span class="text-[12px]"
+                      style="color:var(--muted)">Logs</span><span class="text-[11px] font-bold"
+                      style="color:var(--muted)">8 GB</span></div>
+                  <div class="prog-bg">
+                    <div class="prog-fill" style="width:13%;background:linear-gradient(90deg,#a855f7,#6366f1)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><span class="text-[12px]"
+                      style="color:var(--muted)">Cache</span><span class="text-[11px] font-bold"
+                      style="color:var(--muted)">4 GB</span></div>
+                  <div class="prog-bg">
+                    <div class="prog-fill" style="width:6%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schedule -->
+          <div class="panel">
+            <div class="panel-hd"><span class="panel-title">Backup Schedule</span></div>
+            <div class="p-5 flex flex-col gap-3">
+              <div><label class="lbl">Frequency</label><select class="inp">
+                  <option>Daily (3:00 AM)</option>
+                  <option>Every 12 Hours</option>
+                  <option>Weekly</option>
+                </select></div>
+              <div><label class="lbl">Retention Period</label><select class="inp">
+                  <option>30 Days</option>
+                  <option>60 Days</option>
+                  <option>90 Days</option>
+                  <option>1 Year</option>
+                </select></div>
+              <div><label class="lbl">Destination</label><select class="inp">
+                  <option>Local Storage</option>
+                  <option>AWS S3</option>
+                  <option>Google Cloud</option>
+                </select></div>
+              <button class="btn btn-primary w-full justify-center" onclick="showToast('Schedule saved! ✅')">Save
+                Schedule</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('backups');
+
+    const msgs = ['Initializing backup...', 'Scanning database...', 'Compressing files...', 'Uploading to storage...', 'Verifying integrity...', 'Backup complete! ✅'];
+    function startBackup() {
+      const p = document.getElementById('backupProgress');
+      const bar = document.getElementById('bpBar');
+      const pct = document.getElementById('bpPct');
+      const st = document.getElementById('bpStatus');
+      p.style.display = 'block'; p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      let v = 0, mi = 0;
+      const iv = setInterval(() => {
+        v = Math.min(v + (Math.random() * 4 + 1), 100);
+        bar.style.width = v + '%'; pct.textContent = Math.floor(v) + '%';
+        const ni = Math.floor((v / 100) * 5); if (ni !== mi) { mi = ni; st.textContent = msgs[Math.min(mi, 5)]; }
+        if (v >= 100) { clearInterval(iv); st.textContent = msgs[5]; showToast('Backup completed successfully! 💾'); setTimeout(() => { p.style.display = 'none'; bar.style.width = '0%'; pct.textContent = '0%'; }, 3000); }
+      }, 200);
+    }
+    setTimeout(() => { countUp('sv1', 145); countUp('sv2', 143); }, 1500);
+
+  </script>
+</body>
+
+</html>

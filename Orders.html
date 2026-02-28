@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Orders — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Orders</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Order Management</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)"><span class="live-dot"></span>4,821 total orders · 12
+              pending approval</p>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('New order! 📦')">+ Create Order</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="stat-card d1">
+          <div class="stat-glow" style="background:#3b82f6"></div>
+          <div class="stat-icon ic-blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" x2="21" y1="6" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Total Orders</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv1"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 8% this month</div>
+        </div>
+        <div class="stat-card d2">
+          <div class="stat-glow" style="background:#22c55e"></div>
+          <div class="stat-icon ic-green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Completed</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv2"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 14% this month</div>
+        </div>
+        <div class="stat-card d3">
+          <div class="stat-glow" style="background:#f59e0b"></div>
+          <div class="stat-icon ic-amber"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Pending</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv3"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-amber-400">Need attention</div>
+        </div>
+        <div class="stat-card d4">
+          <div class="stat-glow" style="background:#ef4444"></div>
+          <div class="stat-icon ic-red"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="15" x2="9" y1="9" y2="15" />
+              <line x1="9" x2="15" y1="9" y2="15" />
+            </svg></div>
+          <div class="text-xs font-medium mb-1" style="color:var(--muted)">Cancelled</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv4"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-red-400">↓ 2% this month</div>
+        </div>
+      </div>
+      <div class="panel mb-4">
+        <div class="p-4 flex flex-wrap gap-3 items-center justify-between">
+          <div class="flex gap-2 flex-wrap" id="fBtns">
+            <button class="btn btn-primary btn-sm" onclick="fOrders('all',this)">All</button>
+            <button class="btn btn-ghost btn-sm" onclick="fOrders('completed',this)">Completed</button>
+            <button class="btn btn-ghost btn-sm" onclick="fOrders('pending',this)">Pending</button>
+            <button class="btn btn-ghost btn-sm" onclick="fOrders('shipped',this)">Shipped</button>
+            <button class="btn btn-ghost btn-sm" onclick="fOrders('cancelled',this)">Cancelled</button>
+          </div>
+          <div class="flex gap-2">
+            <input class="inp" style="width:220px;padding:7px 12px" placeholder="🔍 Search orders..." />
+            <button class="btn btn-ghost btn-sm" onclick="showToast('CSV Exported! 📄')">Export CSV</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-hd"><span class="panel-title">All Orders</span><span class="text-xs"
+            style="color:var(--muted2)">Showing <span id="oCount">12</span> orders</span></div>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTb"></tbody>
+          </table>
+        </div>
+        <div class="p-4 flex items-center justify-between flex-wrap gap-3 border-t" style="border-color:var(--border)">
+          <span class="text-xs" style="color:var(--muted2)">Page 1 of 402</span>
+          <div class="flex gap-2"><button class="btn btn-ghost btn-sm">← Prev</button><button
+              class="btn btn-primary btn-sm">1</button><button class="btn btn-ghost btn-sm">2</button><button
+              class="btn btn-ghost btn-sm">3</button><button class="btn btn-ghost btn-sm">Next →</button></div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('orders');
+
+    const ORDERS = [
+      { id: '#4821', n: 'Alex Kim', e: 'alex@email.com', p: 'MacBook Pro 14"', a: '$2,399', st: 'pending', pay: 'COD', d: 'Feb 20, 2025' },
+      { id: '#4820', n: 'Sarah Connor', e: 'sarah@email.com', p: 'iPhone 15 Pro', a: '$1,099', st: 'shipped', pay: 'UPI', d: 'Feb 20, 2025' },
+      { id: '#4819', n: 'Raj Patel', e: 'raj@email.com', p: 'Sony WH-1000XM5', a: '$349', st: 'completed', pay: 'Card', d: 'Feb 19, 2025' },
+      { id: '#4818', n: 'Emma Watson', e: 'emma@email.com', p: 'iPad Air M2', a: '$749', st: 'cancelled', pay: 'Card', d: 'Feb 19, 2025' },
+      { id: '#4817', n: 'Chris Evans', e: 'chris@email.com', p: 'Apple Watch S9', a: '$399', st: 'completed', pay: 'UPI', d: 'Feb 18, 2025' },
+      { id: '#4816', n: 'Priya Singh', e: 'priya@email.com', p: 'Samsung 4K TV', a: '$1,299', st: 'pending', pay: 'EMI', d: 'Feb 18, 2025' },
+      { id: '#4815', n: 'David Lee', e: 'david@email.com', p: 'Nike Air Max', a: '$130', st: 'shipped', pay: 'Card', d: 'Feb 17, 2025' },
+      { id: '#4814', n: 'Anita Kumar', e: 'anita@email.com', p: 'Coffee Machine', a: '$299', st: 'completed', pay: 'UPI', d: 'Feb 17, 2025' },
+      { id: '#4813', n: 'Mike Johnson', e: 'mike@email.com', p: 'Yoga Mat Pro', a: '$55', st: 'completed', pay: 'Card', d: 'Feb 16, 2025' },
+      { id: '#4812', n: 'Lisa Park', e: 'lisa@email.com', p: 'Running Shoes X', a: '$145', st: 'cancelled', pay: 'COD', d: 'Feb 16, 2025' },
+      { id: '#4811', n: 'Tom Wilson', e: 'tom@email.com', p: 'Garden Tool Set', a: '$89', st: 'shipped', pay: 'UPI', d: 'Feb 15, 2025' },
+      { id: '#4810', n: 'Nisha Mehta', e: 'nisha@email.com', p: 'The Art of War', a: '$12', st: 'completed', pay: 'Card', d: 'Feb 15, 2025' },
+    ];
+    const stMap = { completed: 'badge-green', pending: 'badge-amber', shipped: 'badge-cyan', cancelled: 'badge-red' };
+    function renderOrders(data) {
+      const tb = document.getElementById('ordersTb'); tb.innerHTML = '';
+      document.getElementById('oCount').textContent = data.length;
+      data.forEach((o, i) => {
+        const tr = document.createElement('tr'); tr.style.animationDelay = i * .04 + 's';
+        tr.innerHTML = `<td class="font-bold" style="font-family:var(--font-display);color:var(--blue)">${o.id}</td><td><div class="flex items-center gap-2">${avHtml(o.n, i)}<div><div class="text-[13px] font-semibold" style="color:var(--text)">${o.n}</div><div class="text-[11px]" style="color:var(--muted2)">${o.e}</div></div></div></td><td style="color:var(--muted)">${o.p}</td><td class="font-bold" style="font-family:var(--font-display)">${o.a}</td><td><span class="badge ${stMap[o.st]}">${o.st}</span></td><td><span class="tag tag-blue">${o.pay}</span></td><td class="text-xs" style="color:var(--muted2)">${o.d}</td><td><div class="flex gap-2"><button class="btn btn-ghost btn-sm" onclick="showToast('Viewing ${o.id}!')">View</button><button class="btn btn-danger btn-sm" onclick="showToast('Cancelled!')">✕</button></div></td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function fOrders(type, btn) {
+      document.querySelectorAll('#fBtns .btn').forEach(b => b.className = 'btn btn-ghost btn-sm'); btn.className = 'btn btn-primary btn-sm';
+      renderOrders(type === 'all' ? ORDERS : ORDERS.filter(o => o.st === type));
+    }
+    setTimeout(() => { renderOrders(ORDERS); countUp('sv1', 4821); countUp('sv2', 4369); countUp('sv3', 264); countUp('sv4', 188); }, 1500);
+
+  </script>
+</body>
+
+</html>

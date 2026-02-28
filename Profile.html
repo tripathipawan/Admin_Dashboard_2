@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Profile — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+
+      <!-- Header -->
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Profile</span></div>
+        <h1 class="text-2xl font-extrabold tracking-tight" style="font-family:var(--font-display);color:var(--text)">My
+          Profile</h1>
+        <p class="text-sm mt-1" style="color:var(--muted)">Manage your personal information and account settings</p>
+      </div>
+
+      <!-- Top Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 mb-4">
+
+        <!-- Profile Card -->
+        <div class="panel d1 flex flex-col items-center text-center gap-4 p-6">
+          <div class="relative">
+            <img src="https://ui-avatars.com/api/?name=Pawan+Tripathi&background=4f46e5&color=fff&size=200"
+              class="w-24 h-24 rounded-full object-cover border-4"
+              style="border-color:rgba(99,102,241,.5);box-shadow:0 0 20px rgba(99,102,241,.4)" alt="avatar" />
+            <button onclick="showToast('Change photo! 📸')"
+              class="absolute bottom-0 right-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs cursor-pointer border-2 border-[var(--surface)]"
+              style="background:linear-gradient(135deg,#3b82f6,#6366f1)">✏️</button>
+          </div>
+          <div>
+            <div class="text-lg font-bold" style="font-family:var(--font-display);color:var(--text)">Pawan Tripathi
+            </div>
+            <div class="text-sm mt-1" style="color:var(--muted2)">Super Administrator</div>
+            <div class="mt-2"><span class="badge badge-green">Active</span></div>
+          </div>
+          <div class="w-full pt-4 border-t" style="border-color:var(--border)">
+            <div class="grid grid-cols-3 text-center gap-2">
+              <div>
+                <div class="text-xl font-bold" style="font-family:var(--font-display);color:var(--text)">248</div>
+                <div class="text-[10px] mt-0.5" style="color:var(--muted2)">Users</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold" style="font-family:var(--font-display);color:var(--text)">4.8k</div>
+                <div class="text-[10px] mt-0.5" style="color:var(--muted2)">Orders</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold" style="font-family:var(--font-display);color:var(--text)">32</div>
+                <div class="text-[10px] mt-0.5" style="color:var(--muted2)">Reports</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full flex flex-col gap-2">
+            <button class="btn btn-primary w-full justify-center" onclick="showToast('Profile saved! ✅')">Save
+              Profile</button>
+            <button class="btn btn-ghost w-full justify-center">View Public Profile</button>
+          </div>
+        </div>
+
+        <!-- Info Form -->
+        <div class="panel d2">
+          <div class="panel-hd">
+            <span class="panel-title">Personal Information</span>
+            <button class="panel-btn" onclick="showToast('Edit mode on ✏️')">Edit</button>
+          </div>
+          <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="lbl">First Name</label><input class="inp" value="Pawan" type="text" /></div>
+            <div><label class="lbl">Last Name</label><input class="inp" value="Tripathi" type="text" /></div>
+            <div><label class="lbl">Email Address</label><input class="inp" value="pawan@admindash.io" type="email" />
+            </div>
+            <div><label class="lbl">Phone Number</label><input class="inp" value="+91 98765 43210" type="tel" /></div>
+            <div><label class="lbl">Role</label><select class="inp">
+                <option>Super Admin</option>
+                <option>Admin</option>
+                <option>Editor</option>
+              </select></div>
+            <div><label class="lbl">Location</label><input class="inp" value="Bareilly, UP, India" type="text" /></div>
+            <div class="sm:col-span-2"><label class="lbl">Bio</label><textarea class="inp"
+                rows="3">Full-stack developer and system administrator with 5+ years of experience managing enterprise platforms.</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+
+        <!-- Skills -->
+        <div class="panel d3">
+          <div class="panel-hd"><span class="panel-title">Skills & Expertise</span></div>
+          <div class="p-5 flex flex-col gap-4">
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">JavaScript / Node.js</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">92%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:92%;background:linear-gradient(90deg,#3b82f6,#6366f1)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">React & Frontend</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">85%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:85%;background:linear-gradient(90deg,#22c55e,#10b981)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">Python & Data</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">74%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:74%;background:linear-gradient(90deg,#a855f7,#6366f1)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">Database (SQL/NoSQL)</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">88%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:88%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">DevOps & Cloud</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">67%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:67%;background:linear-gradient(90deg,#06b6d4,#3b82f6)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="panel d4">
+          <div class="panel-hd"><span class="panel-title">Security</span></div>
+          <div class="p-5 flex flex-col gap-3">
+            <div><label class="lbl">Current Password</label><input class="inp" type="password" placeholder="••••••••" />
+            </div>
+            <div><label class="lbl">New Password</label><input class="inp" type="password" placeholder="••••••••" />
+            </div>
+            <div><label class="lbl">Confirm Password</label><input class="inp" type="password" placeholder="••••••••" />
+            </div>
+            <button class="btn btn-primary" onclick="showToast('Password updated! 🔐')">Update Password</button>
+            <div class="flex items-center justify-between p-3 rounded-xl border"
+              style="background:var(--surface2);border-color:var(--border)">
+              <div>
+                <div class="text-sm font-semibold" style="color:var(--text)">Two-Factor Auth</div>
+                <div class="text-xs" style="color:var(--muted2)">Enabled via Authenticator</div>
+              </div>
+              <span class="badge badge-green">ON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity -->
+        <div class="panel d5">
+          <div class="panel-hd"><span class="panel-title">Recent Activity</span></div>
+          <div class="divide-y" style="border-color:var(--border)">
+            <div class="flex gap-3 px-4 py-3">
+              <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-sm"
+                style="background:rgba(59,130,246,.12)">🔑</div>
+              <div>
+                <div class="text-[13px]" style="color:var(--text)">Logged in from <strong>Chrome/Windows</strong></div>
+                <div class="text-[11px] mt-0.5" style="color:var(--muted2)">2 hours ago · Bareilly, IN</div>
+              </div>
+            </div>
+            <div class="flex gap-3 px-4 py-3">
+              <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-sm"
+                style="background:rgba(34,197,94,.12)">👤</div>
+              <div>
+                <div class="text-[13px]" style="color:var(--text)">Added user <strong>Rahul Sharma</strong></div>
+                <div class="text-[11px] mt-0.5" style="color:var(--muted2)">Yesterday, 5:30 PM</div>
+              </div>
+            </div>
+            <div class="flex gap-3 px-4 py-3">
+              <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-sm"
+                style="background:rgba(245,158,11,.12)">📦</div>
+              <div>
+                <div class="text-[13px]" style="color:var(--text)">Updated <strong>Product #52</strong> stock</div>
+                <div class="text-[11px] mt-0.5" style="color:var(--muted2)">Yesterday, 2:14 PM</div>
+              </div>
+            </div>
+            <div class="flex gap-3 px-4 py-3">
+              <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-sm"
+                style="background:rgba(168,85,247,.12)">📊</div>
+              <div>
+                <div class="text-[13px]" style="color:var(--text)">Generated <strong>Monthly Report</strong></div>
+                <div class="text-[11px] mt-0.5" style="color:var(--muted2)">Feb 20, 11:00 AM</div>
+              </div>
+            </div>
+            <div class="flex gap-3 px-4 py-3">
+              <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-sm"
+                style="background:rgba(6,182,212,.12)">💾</div>
+              <div>
+                <div class="text-[13px]" style="color:var(--text)">Initiated <strong>System Backup</strong></div>
+                <div class="text-[11px] mt-0.5" style="color:var(--muted2)">Feb 20, 3:00 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-2 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>initLayout('profile');</script>
+</body>
+
+</html>

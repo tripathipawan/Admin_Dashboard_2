@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Analytics — AdminDash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="main-wrapper" class="flex flex-col flex-1 overflow-hidden" style="background:var(--bg)">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="mb-6 anim-up">
+        <div class="flex items-center gap-2 text-xs mb-2" style="color:var(--muted2)"><span>Home</span><span
+            style="color:var(--border2)">›</span><span style="color:var(--text)">Analytics</span></div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight"
+              style="font-family:var(--font-display);color:var(--text)">Analytics Overview</h1>
+            <p class="text-sm mt-1" style="color:var(--muted)"><span class="live-dot"></span>Real-time data · Last
+              updated <span id="liveTime" class="font-semibold" style="color:var(--blue)"></span></p>
+          </div>
+          <div class="flex gap-2"><select class="inp" style="width:150px;padding:7px 12px">
+              <option>Last 30 Days</option>
+              <option>Last 7 Days</option>
+              <option>Last 90 Days</option>
+              <option>This Year</option>
+            </select>
+            <button class="btn btn-primary" onclick="showToast('Report exported! 📊')">Export Report</button>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+        <div class="stat-card d1">
+          <div class="stat-glow" style="background:#3b82f6"></div>
+          <div class="stat-icon ic-blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Page Views</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv1"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 28% vs last month</div>
+        </div>
+        <div class="stat-card d2">
+          <div class="stat-glow" style="background:#22c55e"></div>
+          <div class="stat-icon ic-green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Unique Visitors</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2" id="sv2"
+            style="font-family:var(--font-display);color:var(--text)">0</div>
+          <div class="text-xs font-semibold text-green-400">↑ 15% vs last month</div>
+        </div>
+        <div class="stat-card d3">
+          <div class="stat-glow" style="background:#a855f7"></div>
+          <div class="stat-icon ic-purple"><svg width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Avg Session</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2"
+            style="font-family:var(--font-display);color:var(--text)">4m 32s</div>
+          <div class="text-xs font-semibold text-green-400">↑ 8% vs last month</div>
+        </div>
+        <div class="stat-card d4">
+          <div class="stat-glow" style="background:#f59e0b"></div>
+          <div class="stat-icon ic-amber"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <line x1="18" x2="18" y1="20" y2="10" />
+              <line x1="12" x2="12" y1="20" y2="4" />
+              <line x1="6" x2="6" y1="20" y2="14" />
+            </svg></div>
+          <div class="text-xs mb-1" style="color:var(--muted)">Bounce Rate</div>
+          <div class="text-3xl font-extrabold tracking-tight mb-2"
+            style="font-family:var(--font-display);color:var(--text)">32%</div>
+          <div class="text-xs font-semibold text-red-400">↓ 5% vs last month</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+        <div class="panel d1">
+          <div class="panel-hd"><span class="panel-title">Traffic Overview</span>
+            <div class="chart-tabs"><button class="ctab active" onclick="swT(this,'week')">Week</button><button
+                class="ctab" onclick="swT(this,'month')">Month</button><button class="ctab"
+                onclick="swT(this,'year')">Year</button></div>
+          </div>
+          <div class="p-5"><canvas id="trafficChart" height="220"></canvas></div>
+        </div>
+        <div class="panel d2">
+          <div class="panel-hd"><span class="panel-title">Traffic Sources</span></div>
+          <div class="p-5 flex items-center justify-center"><canvas id="sourceChart" height="220"
+              style="max-height:220px"></canvas></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+        <div class="panel d3">
+          <div class="panel-hd"><span class="panel-title">Top Pages</span></div>
+          <div class="overflow-x-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Page</th>
+                  <th>Views</th>
+                  <th>Unique</th>
+                  <th>Bounce</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-bold" style="color:var(--blue)">1</td>
+                  <td>/dashboard</td>
+                  <td class="font-bold">24,891</td>
+                  <td>18,234</td>
+                  <td class="font-semibold text-green-400">21%</td>
+                </tr>
+                <tr>
+                  <td class="font-bold" style="color:var(--blue)">2</td>
+                  <td>/products</td>
+                  <td class="font-bold">18,432</td>
+                  <td>12,100</td>
+                  <td class="font-semibold text-amber-400">35%</td>
+                </tr>
+                <tr>
+                  <td class="font-bold" style="color:var(--blue)">3</td>
+                  <td>/orders</td>
+                  <td class="font-bold">12,189</td>
+                  <td>8,445</td>
+                  <td class="font-semibold text-green-400">28%</td>
+                </tr>
+                <tr>
+                  <td class="font-bold" style="color:var(--blue)">4</td>
+                  <td>/analytics</td>
+                  <td class="font-bold">9,834</td>
+                  <td>7,221</td>
+                  <td class="font-semibold text-green-400">19%</td>
+                </tr>
+                <tr>
+                  <td class="font-bold" style="color:var(--blue)">5</td>
+                  <td>/profile</td>
+                  <td class="font-bold">6,234</td>
+                  <td>5,123</td>
+                  <td class="font-semibold text-red-400">48%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel d4">
+          <div class="panel-hd"><span class="panel-title">Device Breakdown</span></div>
+          <div class="p-5 flex flex-col gap-4">
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">📱 Mobile</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">54%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:54%;background:linear-gradient(90deg,#3b82f6,#6366f1)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">💻 Desktop</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">38%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:38%;background:linear-gradient(90deg,#22c55e,#10b981)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                  style="color:var(--text)">📟 Tablet</span><span class="text-xs font-bold"
+                  style="color:var(--muted)">8%</span></div>
+              <div class="prog-bg">
+                <div class="prog-fill" style="width:8%;background:linear-gradient(90deg,#a855f7,#6366f1)"></div>
+              </div>
+            </div>
+            <div class="pt-3 border-t" style="border-color:var(--border)">
+              <div>
+                <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                    style="color:var(--text)">🌐 Chrome</span><span class="text-xs font-bold"
+                    style="color:var(--muted)">62%</span></div>
+                <div class="prog-bg">
+                  <div class="prog-fill" style="width:62%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div class="flex justify-between mb-1.5"><span class="text-[13px] font-medium"
+                    style="color:var(--text)">🦊 Firefox</span><span class="text-xs font-bold"
+                    style="color:var(--muted)">18%</span></div>
+                <div class="prog-bg">
+                  <div class="prog-fill" style="width:18%;background:linear-gradient(90deg,#06b6d4,#3b82f6)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center flex-wrap gap-2 pt-4 mt-4 border-t"
+        style="border-color:var(--border)">
+        <span class="text-xs" style="color:var(--muted2)">© 2025 AdminDash — Made with ❤️ by Pawan Tripathi</span>
+        <span class="text-xs" style="color:var(--muted2)">v2.5.0 · <span style="color:var(--green)">● All systems
+            operational</span></span>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    initLayout('analytics');
+
+    let TC, SC;
+    const TD = {
+      week: { labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], v: [4200, 6100, 5400, 7800, 6900, 9200, 8400], u: [3100, 4500, 4000, 5900, 5200, 7100, 6300] },
+      month: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], v: [28000, 24000, 35000, 31000, 42000, 38000, 48000, 44000, 52000, 47000, 58000, 54000], u: [21000, 18000, 26000, 23000, 31000, 28000, 36000, 33000, 39000, 35000, 44000, 41000] },
+      year: { labels: ['2020', '2021', '2022', '2023', '2024', '2025'], v: [180000, 245000, 310000, 385000, 456000, 524000], u: [135000, 184000, 232000, 289000, 342000, 394000] }
+    };
+    function initCharts() {
+      const c = gc();
+      TC = new Chart(document.getElementById('trafficChart').getContext('2d'), { type: 'line', data: { labels: TD.week.labels, datasets: [{ label: 'Page Views', data: TD.week.v, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.08)', borderWidth: 2.5, fill: true, tension: .45, pointBackgroundColor: '#3b82f6', pointBorderColor: 'transparent', pointRadius: 4, pointHoverRadius: 7 }, { label: 'Unique Visitors', data: TD.week.u, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,.06)', borderWidth: 2.5, fill: true, tension: .45, pointBackgroundColor: '#22c55e', pointBorderColor: 'transparent', pointRadius: 4, pointHoverRadius: 7 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'top', labels: { color: c.text, font: { size: 12, family: 'DM Sans' }, boxWidth: 12, padding: 16, usePointStyle: true } }, tooltip: { backgroundColor: '#1a2133', borderColor: 'rgba(255,255,255,.12)', borderWidth: 1, titleColor: '#f1f5f9', bodyColor: c.text, padding: 12, cornerRadius: 10 } }, scales: { x: { grid: { color: c.grid, drawBorder: false }, ticks: { color: c.text, font: { size: 11, family: 'DM Sans' } } }, y: { grid: { color: c.grid, drawBorder: false }, ticks: { color: c.text, font: { size: 11, family: 'DM Sans' }, callback: v => v >= 1000 ? v / 1000 + 'k' : v } } } } });
+      SC = new Chart(document.getElementById('sourceChart').getContext('2d'), { type: 'doughnut', data: { labels: ['Organic', 'Direct', 'Social', 'Referral', 'Email'], datasets: [{ data: [38, 25, 18, 12, 7], backgroundColor: ['#3b82f6', '#22c55e', '#a855f7', '#f59e0b', '#06b6d4'], borderWidth: 0, hoverOffset: 8 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right', labels: { color: c.text, font: { size: 12, family: 'DM Sans' }, boxWidth: 12, padding: 14, usePointStyle: true } }, tooltip: { backgroundColor: '#1a2133', borderColor: 'rgba(255,255,255,.12)', borderWidth: 1, titleColor: '#f1f5f9', bodyColor: c.text, padding: 12, cornerRadius: 10, callbacks: { label: ct => ` ${ct.label}: ${ct.raw}%` } } } } });
+    }
+    function swT(btn, p) { document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); TC.data.labels = TD[p].labels; TC.data.datasets[0].data = TD[p].v; TC.data.datasets[1].data = TD[p].u; TC.update('active'); }
+    setTimeout(() => { initCharts(); countUp('sv1', 284500); countUp('sv2', 94200); }, 1500);
+
+  </script>
+</body>
+
+</html>
